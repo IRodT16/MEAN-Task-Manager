@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 // CORS HEADER MIDDLEWARE
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -51,7 +52,7 @@ app.patch('/lists/:id', (req, res) => {
   List.findOneAndUpdate({ _id: req.params.id }, {
     $set: req.body
   }).then(()=> {
-    res.sendStatus(200);
+    res.send({'message': 'Updated Successfully'})
   })
 });
 
@@ -103,6 +104,7 @@ app.patch('/lists/:listId/tasks/:taskId', (req,res)=>{
     $set: req.body
   }).then(()=>{
     res.sendStatus(200)
+    
   })
 
 })
